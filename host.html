@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anfitrión — Warisata: Saberes en Juego</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="cordillera">
+    <div class="capa capa-1"></div>
+    <div class="capa capa-2"></div>
+  </div>
+
+  <div class="contenedor">
+    <!-- ============ VISTA 1: crear sala ============ -->
+    <div id="vista-inicio" class="tarjeta">
+      <a href="index.html" class="enlace-volver">← Menú principal</a>
+      <div class="marca">
+        <span class="sol">☀️</span>
+        <h1>Crear una sala</h1>
+        <p>Elige la modalidad de juego para tu clase</p>
+      </div>
+
+      <label>Modalidad</label>
+      <div class="fila-botones">
+        <button id="btn-modo-equipos" class="boton">👥 Por equipos</button>
+        <button id="btn-modo-individual" class="boton secundario">🙋 Individual</button>
+      </div>
+
+      <div class="fila-botones">
+        <button id="btn-crear-sala" class="boton terracota">Crear sala ▶</button>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 2: lobby (esperando jugadores) ============ -->
+    <div id="vista-lobby" class="tarjeta oculto" style="max-width: 900px">
+      <a href="index.html" class="enlace-volver">← Menú principal</a>
+      <div class="marca">
+        <p>Escanea el código o entra a la dirección con el código:</p>
+        <div class="codigo-sala" id="codigo-mostrado">----</div>
+        <div class="qr-caja"><div id="qr"></div></div>
+        <a id="enlace-sala" href="#" style="word-break: break-all"></a>
+      </div>
+
+      <h3 style="text-align:center">Jugadores conectados: <span id="contador-jugadores">0</span></h3>
+      <div class="grilla-equipos" id="grilla-lobby"></div>
+
+      <div class="fila-botones">
+        <button id="btn-iniciar-juego" class="boton terracota" disabled>Iniciar partida 🚀</button>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 3: pregunta en curso ============ -->
+    <div id="vista-pregunta" class="tarjeta oculto" style="max-width: 900px">
+      <p class="pregunta-numero" id="ronda-actual"></p>
+      <p class="pregunta-numero" id="numero-pregunta"></p>
+      <h2 class="pregunta-texto" id="texto-pregunta"></h2>
+      <div class="temporizador-barra"><div class="temporizador-relleno" id="barra-tiempo"></div></div>
+      <div class="opciones-grilla" id="grilla-opciones-host"></div>
+    </div>
+
+    <!-- ============ VISTA 4: ranking entre rondas (camino andino) ============ -->
+    <div id="vista-ranking" class="tarjeta oculto" style="max-width: 1000px">
+      <h2 style="text-align:center">Camino del Vivir Bien</h2>
+      <div class="camino-wrap">
+        <div class="camino" id="camino"><span class="meta">🏔️</span></div>
+      </div>
+      <h3 id="titulo-ranking-principal" style="text-align:center; color: var(--oro)">🏆 Ranking de equipos</h3>
+      <ol class="lista-ranking" id="lista-ranking-host"></ol>
+
+      <div id="bloque-ranking-individual" class="oculto">
+        <h3 style="text-align:center; color: var(--oro)">⭐ Top individual</h3>
+        <ol class="lista-ranking" id="lista-ranking-individual"></ol>
+      </div>
+
+      <div class="fila-botones">
+        <button id="btn-siguiente" class="boton terracota">Siguiente pregunta →</button>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 5: resultado final ============ -->
+    <div id="vista-final" class="tarjeta oculto" style="max-width: 700px">
+      <div class="marca">
+        <span class="sol">🏆</span>
+        <h1>¡Partida terminada!</h1>
+        <p>Ganador: <strong id="nombre-ganador">-</strong></p>
+      </div>
+      <h3 id="titulo-final-principal" style="text-align:center; color: var(--oro)">🏆 Equipos</h3>
+      <ol class="lista-ranking" id="lista-final"></ol>
+
+      <div id="bloque-final-individual" class="oculto">
+        <h3 style="text-align:center; color: var(--oro)">⭐ Top individual</h3>
+        <ol class="lista-ranking" id="lista-final-individual"></ol>
+      </div>
+
+      <div class="fila-botones">
+        <button id="btn-guardar-top" class="boton terracota">Guardar en el Top histórico 🏆</button>
+        <button id="btn-nueva-partida" class="boton secundario">Nueva partida</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pie">Pantalla del anfitrión · proyéctala en la pizarra del aula</footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <!-- Generador de códigos QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Lógica del juego -->
+  <script src="js/preguntas.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    // botón de modo inicia marcado en "equipos"
+    document.getElementById("btn-modo-equipos").classList.remove("secundario");
+  </script>
+  <script src="js/host.js"></script>
+
+  <style>
+    .oculto { display: none !important; }
+  </style>
+</body>
+</html>

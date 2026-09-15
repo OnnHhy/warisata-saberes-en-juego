@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warisata: Saberes en Juego</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="cordillera">
+    <div class="capa capa-1"></div>
+    <div class="capa capa-2"></div>
+  </div>
+
+  <div class="contenedor">
+    <div class="tarjeta">
+      <div class="marca">
+        <span class="sol">☀️</span>
+        <h1>Warisata: Saberes en Juego</h1>
+        <p>Un juego cooperativo para reforzar la filosofía de la educación</p>
+      </div>
+
+      <div class="fila-botones" style="flex-direction: column">
+        <a href="host.html" class="boton" style="text-decoration: none; text-align: center;">
+          🖥️ Soy el anfitrión (proyector / pizarra)
+        </a>
+        <a href="jugar.html" class="boton secundario" style="text-decoration: none; text-align: center;">
+          📱 Soy estudiante, quiero jugar
+        </a>
+      </div>
+
+      <hr style="border-color: rgba(242,233,216,0.15); margin: 1.8rem 0" />
+
+      <h3 style="text-align:center; color: var(--oro)">🏆 Top histórico</h3>
+      <ol class="lista-ranking" id="lista-top-global"></ol>
+    </div>
+  </div>
+
+  <footer class="pie">Hecho con 🦙 para la clase de Filosofía de la Educación</footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script>
+    db.ref("ranking_global").orderByChild("puntaje").limitToLast(10).once("value", (snap) => {
+      const datos = [];
+      snap.forEach((child) => datos.push(child.val()));
+      datos.reverse();
+      const ol = document.getElementById("lista-top-global");
+      if (!datos.length) {
+        ol.innerHTML = '<li style="justify-content:center; opacity:.7">Todavía no hay partidas guardadas</li>';
+        return;
+      }
+      datos.forEach((d, idx) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span><span class="puesto">#${idx + 1}</span>${d.nombre}</span><span>${d.puntaje} pts</span>`;
+        ol.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
