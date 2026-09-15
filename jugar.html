@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugar — Warisata: Saberes en Juego</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="cordillera">
+    <div class="capa capa-1"></div>
+    <div class="capa capa-2"></div>
+  </div>
+
+  <div class="contenedor">
+    <!-- ============ VISTA 1: unirse ============ -->
+    <div id="vista-unirse" class="tarjeta">
+      <div class="marca">
+        <span class="sol">🦙</span>
+        <h1>Únete a la partida</h1>
+      </div>
+
+      <label>Código de sala</label>
+      <input type="text" id="input-codigo" placeholder="EJ: K7QX" maxlength="4" />
+
+      <label>Tu nombre</label>
+      <input type="text" id="input-nombre" placeholder="Escribe tu nombre" maxlength="20" style="letter-spacing: normal; text-transform: none" />
+
+      <p id="error-unirse" style="color: var(--terracota); text-align: center; min-height: 1.2em"></p>
+
+      <div class="fila-botones">
+        <button id="btn-unirse" class="boton terracota">Entrar ▶</button>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 2: elegir equipo ============ -->
+    <div id="vista-elegir-equipo" class="tarjeta oculto">
+      <div class="marca">
+        <h1>Elige tu equipo</h1>
+      </div>
+      <div class="grilla-equipos" id="grilla-equipos-jugador"></div>
+    </div>
+
+    <!-- ============ VISTA 3: esperando que inicie ============ -->
+    <div id="vista-espera" class="tarjeta oculto">
+      <div id="banner-equipo-jugador" class="banner-equipo oculto"></div>
+      <div class="espera">
+        <span class="icono-girando">☀️</span>
+        <h2>¡Listo, <span id="nombre-confirmado"></span>!</h2>
+        <p>Esperando a que el anfitrión inicie la partida...</p>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 4: pregunta ============ -->
+    <div id="vista-juego" class="tarjeta oculto" style="max-width: 700px">
+      <p class="pregunta-numero" id="pregunta-jugador-numero"></p>
+      <h2 class="pregunta-texto" id="pregunta-jugador-texto" style="font-size: 1.3rem"></h2>
+      <div class="opciones-grilla" id="grilla-opciones-jugador"></div>
+
+      <div id="confirmacion-jugador" class="confirmacion-respuesta oculto">
+        <span class="icono">✅</span>
+        <p>¡Respuesta enviada! Mira la pantalla principal...</p>
+      </div>
+    </div>
+
+    <!-- ============ VISTA 5: resultado final ============ -->
+    <div id="vista-resultado-final" class="tarjeta oculto">
+      <div class="marca">
+        <span class="sol">🏁</span>
+        <h1>¡Partida terminada!</h1>
+      </div>
+      <p style="text-align:center; font-size: 1.2rem">
+        Terminaste en el puesto <strong id="puesto-final-jugador">-</strong> con
+        <strong id="puntaje-final-jugador">0</strong> puntos.
+      </p>
+    </div>
+  </div>
+
+  <footer class="pie">Mantén esta pantalla abierta durante toda la partida</footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <!-- Lógica del juego -->
+  <script src="js/preguntas.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/jugador.js"></script>
+
+  <style>
+    .oculto { display: none !important; }
+  </style>
+</body>
+</html>
